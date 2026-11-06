@@ -1,0 +1,38 @@
+name: build-article
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install TeX (XeLaTeX)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-xetex texlive-latex-extra texlive-lang-cyrillic latexmk make
+
+      - name: Build PDF
+        run: |
+          xelatex -interaction=nonstopmode article.tex
+          xelatex -interaction=nonstopmode article.tex
+          mkdir -p build
+          # если PDF появился в корне:
+          if [ -f article.pdf ]; then cp article.pdf build/article.pdf; fi
+          # если Makefile сам кладёт в build/, этот шаг просто ничего не сломает:
+          if [ -f build/article.pdf ]; then echo "build/article.pdf ready"; fi
+
+      - name: Upload artifact (PDF)
+        uses: actions/upload-artifact@v4
+        with:
+          name: article-pdf
+          path: build/article.pdf
