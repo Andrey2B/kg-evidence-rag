@@ -8,8 +8,7 @@
 | Путь | Назначение |
 |---|---|
 | `article.tex` | Текст статьи |
-| `misisarticle.cls` | Класс оформления (не менять) |
-| `figures/` | Рисунки для статьи (если используются) |
+| `misisarticle.cls` | Класс оформления|
 | `.github/workflows/` | GitHub Actions: сборка PDF |
 
 ## Сборка статьи
@@ -18,7 +17,7 @@
 
 ### GitHub Actions
 PDF собирается автоматически при push в `main`.
-Скачать: вкладка **Actions** → последний запуск → **Artifacts** → `article.pdf`.
+Скачать: вкладка **Actions** - `article.pdf`.
 
 ### Локально
 ```bash
